@@ -35,14 +35,14 @@ const MovieName = styled.span`
 `;
 const MovieInfo = styled.span`
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: black;
   overflow: hidden;
   margin: 4px 0;
   text-transform: capitalize;
   text-overflow: ellipsis;
   & span {
-    opacity: 0.6;
+    opacity: 0.5;
   }
 `;
 const Close = styled.span`

@@ -1,129 +1,139 @@
-import React,{useEffect, useState} from 'react';
+import MoviComponent from "./Component/MoviComponent";
+import MovieInfoComponent from "./Component/MovieInfoComponent";
 import styled from "styled-components";
-import axios from "axios";
-import MovieComponent from "./Components/MovieComponent";
-import MovieInfoComponent from './Components/MovieInfoComponent';
+import { useState ,useEffect} from "react";
+import Axios from "axios";
+const API_KEY = '3746563d';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
+
 const Header = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items:center;
   background-color: black;
   color: white;
   padding: 10px;
-  // padding-left:20px;
   font-size: 25px;
   font-weight: bold;
-  box-shadow: 0 3px 6px #555;
-  width: 100vw;
+  box-shadow: 0 3px 6px 0 #555;
+  justify-content: space-between;
+  align-item: center;
 `;
+
 const AppName = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-display: row;
   align-items: center;
 `;
-const MovieImage= styled.img`
-  width:55px;
-  height:52px;
-  margin:15px;
-  margin-left: 20px;
+
+const MovieImage = styled.img`
+  width: 48px;
+  heigth: 48px;
+  margin: 15px;
 `;
+
 const SearchBox = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-display: row;
   background-color: white;
-  padding:10px 10px;
-  width:50%;
+  padding: 10px 10px;
+  margin: 10px;
   border-radius: 6px;
-  margin-left:20px;
-  margin-right:5px;
+  width: 50%;
+  align-items: center;
 `;
+
 const SearchIcon = styled.img`
-  height: 25px;
-  width: 25px;
+  width: 32px;
+  height: 32px;
 `;
+
 const SearchInput = styled.input`
-  margin-left: 20px;
+  color: black;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
   outline: none;
-  font-size: 15px;
-  font-weight: bold;
+  margin-left: 15px;
 `;
-const MovieListContainer= styled.div`
+
+const MoviListContainer = styled.div`
   display: flex;
   flex-direction: row;
-  flex-wrap : wrap;
-  padding: 30px; 
-  gap:24px;
+  flex-wrap: wrap;
+  padding: 30px;
   justify-content: space-evenly;
-  // justify-content:space-around;
-  width:100%;
-  margin-bottom: 10px;
 `;
 
+const Placeholder = styled.img`
+width:120px;
+height:120px;
+margin:150px;
+opacity:50%;
+`
 
 function App() {
-
   const [searchQuery, updateSearchQuery] = useState();
   const [timeoutId, updateTimeoutId] = useState();
-  const [movieList ,updateMovieList] = useState([]);
-  const [selectedMovie ,updateSelectedMovie] = useState();
-  const [initialSearch, updateInitialSearch] = useState([]);
+  const[movieList , updatedMovieList] = useState([]);
+  const[selectedMovie ,updateselectedMovie ] = useState();
 
 
-  const fetchData = async(searchString)=>{
-    const response= await axios.get(`http://www.omdbapi.com/?s=${searchString}&apikey=92dd219e`);
-    // console.log(response);
-    updateMovieList(response.data.Search)
-    if(!initialSearch.length){
-      updateInitialSearch([...movieList]);
-    }
+  const FetchData = async(searchString)=>{
+    const response= await Axios.get(`https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`);
+    console.log(response);
+    // console.log(response.data.Search);
+    updatedMovieList(response.data.Search)
+
   }
-  
+
   const onTextChange = (event) => {
     clearTimeout(timeoutId);
+    console.log("Updated in Input");
     updateSearchQuery(event.target.value);
-    if(event.target.value !== ""){
-      const timeout= setTimeout(() => fetchData(event.target.value), 500);
-     updateTimeoutId(timeout);
-    }
-    else{
-      updateMovieList(initialSearch)
-    }
-    
+    const timeout = setTimeout(() => {
+      FetchData(event.target.value);
+      console.log("Api called");
+    }, 1000);
+    updateTimeoutId(timeout);
   };
-  //  useEffect(()=>{
-  //   fetchData('anime');
-  //  },[])
+
+
+  useEffect(()=>{
+    FetchData('anime');
+  },[])
 
 
   return (
-    <Container>
-      <Header>
-      <AppName>
-          <MovieImage src="/Movie-icon.svg"/>
-            My Movie App 
-            </AppName>
-            <SearchBox>
-            <SearchIcon src="/Search-icon.svg"/>
-            <SearchInput placeholder="Search Movie" value={searchQuery} onChange={onTextChange}/>
-            </SearchBox>
-      </Header>
-      {selectedMovie ? <MovieInfoComponent selectedMovie={selectedMovie} onMovieSelect={updateSelectedMovie} /> :null}
-        <MovieListContainer>
-          {movieList?.length
-          ?movieList.map((movie , index)=> <MovieComponent key={index} movie={movie} onMovieSelect={updateSelectedMovie}/>)
-        :"No Movie Found"}
+    <>
+      <Container>
+        <Header>
+          <AppName>
+            <MovieImage src="/movie-icon.svg" />
+            Movie App
+          </AppName>
+          <SearchBox>
+            <SearchIcon src="/search-icon.svg" />
+            <SearchInput
+              placeholder="Search Movies"
+              onChange={onTextChange}
+              value={searchQuery}
+            />
+          </SearchBox>
+        </Header>
+        {selectedMovie ? <MovieInfoComponent selectedMovie={selectedMovie} onMovieSelect={updateselectedMovie} /> :null}
+        <MoviListContainer>
+          {
+            movieList?.length?movieList.map((movieList , index)=><MoviComponent key={index} movie={movieList} onMovieSelect={updateselectedMovie} />): <Placeholder src="/movie-icon.svg" />
+          }
+          {/* <MoviComponent /> */}
           
-        </MovieListContainer>
-    </Container>
+        </MoviListContainer>
+      </Container>
+    </>
   );
 }
 
