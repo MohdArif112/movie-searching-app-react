@@ -99,9 +99,9 @@ function App() {
     }
     
   };
-   useEffect(()=>{
-    fetchData('anime');
-   },[])
+  //  useEffect(()=>{
+  //   fetchData('anime');
+  //  },[])
 
 
   return (
