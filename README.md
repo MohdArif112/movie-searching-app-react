@@ -1,6 +1,6 @@
 
 React Movie App - ReactJS Projects
-=======
+
 Hosted Link:
 https://melodic-douhua-a5159d.netlify.app
 
