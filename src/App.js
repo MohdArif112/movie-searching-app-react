@@ -1,7 +1,7 @@
 import MoviComponent from "./Component/MoviComponent";
 import MovieInfoComponent from "./Component/MovieInfoComponent";
 import styled from "styled-components";
-import { useState ,useEffect} from "react";
+import { useState} from "react";
 import Axios from "axios";
 const API_KEY = '3746563d';
 const Container = styled.div`
@@ -78,34 +78,36 @@ opacity:50%;
 function App() {
   const [searchQuery, updateSearchQuery] = useState();
   const [timeoutId, updateTimeoutId] = useState();
+  const [defaultMovieList, setDefaultMovieList] = useState([]);
   const[movieList , updatedMovieList] = useState([]);
   const[selectedMovie ,updateselectedMovie ] = useState();
 
+
+  
+ 
 
   const FetchData = async(searchString)=>{
     const response= await Axios.get(`https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`);
     console.log(response);
     // console.log(response.data.Search);
-    updatedMovieList(response.data.Search)
+    updatedMovieList(response.data.Search);
+    if (!defaultMovieList.length) {
+      setDefaultMovieList([...movieList]);
+    }
 
   }
 
   const onTextChange = (event) => {
+    
     clearTimeout(timeoutId);
-    console.log("Updated in Input");
     updateSearchQuery(event.target.value);
-    const timeout = setTimeout(() => {
-      FetchData(event.target.value);
-      console.log("Api called");
-    }, 1000);
-    updateTimeoutId(timeout);
+    if (event.target.value !== "") {
+      const timeout = setTimeout(() => FetchData(event.target.value), 500);
+      updateTimeoutId(timeout);
+    } else {
+      updatedMovieList(defaultMovieList);
+    }
   };
-
-
-  useEffect(()=>{
-    FetchData('anime');
-  },[])
-
 
   return (
     <>
