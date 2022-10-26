@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 React Movie App - ReactJS Projects
 =======
 Hosted Link:
