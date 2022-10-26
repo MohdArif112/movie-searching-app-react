@@ -1,25 +1,31 @@
 import MoviComponent from "./Component/MoviComponent";
 import MovieInfoComponent from "./Component/MovieInfoComponent";
 import styled from "styled-components";
+import './index.css'
 import { useState} from "react";
 import Axios from "axios";
 const API_KEY = '3746563d';
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
-
 const Header = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
   background-color: black;
   color: white;
   padding: 10px;
+  // padding-left:20px;
   font-size: 25px;
   font-weight: bold;
-  box-shadow: 0 3px 6px 0 #555;
-  justify-content: space-between;
-  align-item: center;
+  box-shadow: 0 3px 6px #555;
+  width: 100vw;
 `;
 
 const AppName = styled.div`
@@ -83,9 +89,6 @@ function App() {
   const[selectedMovie ,updateselectedMovie ] = useState();
 
 
-  
- 
-
   const FetchData = async(searchString)=>{
     const response= await Axios.get(`https://www.omdbapi.com/?s=${searchString}&apikey=${API_KEY}`);
     console.log(response);
@@ -129,7 +132,7 @@ function App() {
         {selectedMovie ? <MovieInfoComponent selectedMovie={selectedMovie} onMovieSelect={updateselectedMovie} /> :null}
         <MoviListContainer>
           {
-            movieList?.length?movieList.map((movieList , index)=><MoviComponent key={index} movie={movieList} onMovieSelect={updateselectedMovie} />): <Placeholder src="/movie-icon.svg" />
+            movieList?.length?movieList.map((movieList , index)=><MoviComponent key={index} movie={movieList} onMovieSelect={updateselectedMovie} />): <Placeholder src="/movie-icon.svg"/>
           }
           {/* <MoviComponent /> */}
           
