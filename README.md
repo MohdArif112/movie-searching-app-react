@@ -1,4 +1,22 @@
+<<<<<<< HEAD
 React Movie App - ReactJS Projects
+=======
+Hosted Link:
+https://melodic-douhua-a5159d.netlify.app
+
+APIs Used
+The Open Movie Database APIs
+
+API Info
+Method: GET
+Search URL: https://www.omdbapi.com/?s={MOVIE_NAME}&apikey={API_KEY}
+Movie Details URL: https://www.omdbapi.com/?i={MOVIE_ID}&apikey={API_KEY}
+Libraries used
+styled-components
+axios
+`react-scripts
+Getting Started with Create React App
+>>>>>>> 4d11530b7b86bb6565fd41a51ab9c22eb1a19ffe
 This project was bootstrapped with Create React App.
 
 Available Scripts
@@ -34,6 +52,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don't have to ever use eject. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 Learn More
+<<<<<<< HEAD
 You can learn more in the [Create React App documentation] To learn React, check out the React documentation.
 
 Deployment
@@ -60,3 +79,26 @@ Client: HTML, CSS , react-js ,axios , styled-components
 
 Support
 For support, email arif112mohd@gmail.com
+=======
+You can learn more in the Create React App documentation.
+
+To learn React, check out the React documentation.
+
+Code Splitting
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+Analyzing the Bundle Size
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+Making a Progressive Web App
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+Advanced Configuration
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+Deployment
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+npm run build fails to minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+>>>>>>> 4d11530b7b86bb6565fd41a51ab9c22eb1a19ffe
